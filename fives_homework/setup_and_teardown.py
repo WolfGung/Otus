@@ -32,6 +32,3 @@ def filter_products_by_name(driver, product_name):
 def delete_all_products(driver):
     click_choose_all_products_checkbox(driver)
     click_delete_all_products_button(driver)
-
-
-
