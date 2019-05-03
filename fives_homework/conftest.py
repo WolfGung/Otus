@@ -62,7 +62,7 @@ def start_browser(request, browser, timeout):
         wd.implicitly_wait(int(timeout))
     else:
         options = firefox_options()
-        #options.headless = True
+        options.headless = True
         wd = webdriver.Firefox(options=options, executable_path=firefoxdriver_path)
         wd.implicitly_wait(int(timeout))
     wd.maximize_window()
