@@ -12,7 +12,7 @@ def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox",
                      help="Enter browser name. Supported:'firefox', 'chrome'")
     parser.addoption("--address", action="store",
-                     default="http://192.168.0.103/opencart/admin",
+                     default="http://192.168.102.98/opencart/admin/",
                      help="Enter opencart url")
     parser.addoption("--timeout", action="store", default="5",
                      help="Enter page load timeout")
@@ -53,8 +53,8 @@ def start_browser(request, browser, timeout):
     :param browser: name of browser that will start
     :param timeout: page load timeout
     """
-    chromedriver_path = '/home/support/Py_projects/Otus/drivers/chromedriver'
-    firefoxdriver_path = '/home/support/Py_projects/Otus/drivers/geckodriver'
+    chromedriver_path = '/home/zhukov/PycharmProjects/Otus/drivers/chromedriver'
+    firefoxdriver_path = '/home/zhukov/PycharmProjects/Otus/drivers/geckodriver'
     if browser == "chrome":
         options = chrome_options()
         options.headless = True
@@ -62,7 +62,7 @@ def start_browser(request, browser, timeout):
         wd.implicitly_wait(int(timeout))
     else:
         options = firefox_options()
-        options.headless = True
+        #options.headless = True
         wd = webdriver.Firefox(options=options, executable_path=firefoxdriver_path)
         wd.implicitly_wait(int(timeout))
     wd.maximize_window()
