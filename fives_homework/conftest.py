@@ -57,7 +57,7 @@ def start_browser(request, browser, timeout):
     firefoxdriver_path = '/home/zhukov/PycharmProjects/Otus/drivers/geckodriver'
     if browser == "chrome":
         options = chrome_options()
-        options.headless = True
+        #options.headless = True
         wd = webdriver.Chrome(options=options, executable_path=chromedriver_path)
         wd.implicitly_wait(int(timeout))
     else:

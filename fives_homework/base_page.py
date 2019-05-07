@@ -15,7 +15,7 @@ class BasePage:
         :param some_keys: keys we want to send
         """
         _wait_for_element(driver, locator)
-        driver.find_element(locator).send_keys(some_keys)
+        driver.find_element(*locator).send_keys(some_keys)
 
     @staticmethod
     def click_on_object(driver, locator):
@@ -25,7 +25,7 @@ class BasePage:
         :param locator: object locator
         """
         _wait_for_element(driver, locator)
-        driver.find_element(locator).click()
+        driver.find_element(*locator).click()
 
     @staticmethod
     def click_on_object_from_many(driver, locator, attribute, attribute_value):
@@ -44,7 +44,7 @@ class BasePage:
                 button.click()
                 break
             else:
-                raise AttributeError("There are no button with {} attribute".format(attribute_value))
+                continue
 
     @staticmethod
     def clear_object(driver, locator):
@@ -54,7 +54,7 @@ class BasePage:
         :param locator: object locator
         """
         _wait_for_element(driver, locator)
-        driver.find_element(locator).clear()
+        driver.find_element(*locator).clear()
 
     @staticmethod
     def alert_accept_click(driver):
