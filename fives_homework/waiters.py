@@ -10,11 +10,38 @@ import logging
 
 def _wait_for_element(driver, locator, delay=5):
     """
-    Waiting for element by locator
-    :param driver: browser webdriver
+    Waiting for element visible by locator
+    :param driver: browser web driver
     :param locator: locator of element that we want to wait
+    :param delay: maximal time that we waiting till element came visible
     """
     try:
         WebDriverWait(driver, int(delay)).until(EC.presence_of_element_located(locator))
     except(NoSuchElementException, TimeoutException):
         logging.error("There are no visible element in delay {}".format(delay))
+
+
+def _wait_for_element_not(driver, locator, delay=5):
+    """
+    Waiting for element invisible by locator
+    :param driver: browser web driver
+    :param locator: locator of element that we want to wait
+    :param delay: maximal time that we waiting till element came invisible
+    """
+    try:
+        WebDriverWait(driver, int(delay)).until_not(EC.presence_of_element_located(locator))
+    except(NoSuchElementException, TimeoutException):
+        logging.error("There are visible element with locator:{}".format(locator))
+
+
+def _wait_for_alert(driver, alert_message, delay=5):
+    """
+    Waiting for alert
+    :param driver: browser web driver
+    :param alert_message: message in the alert window
+    :param delay: maximal time that we waiting alert
+    """
+    try:
+        WebDriverWait(driver, int(delay)).until(EC.alert_is_present(), alert_message)
+    except(NoSuchElementException, TimeoutException):
+        logging.error("There are alert with message:{}".format(alert_message))

@@ -42,7 +42,6 @@ class BasePage:
             data = button.get_attribute(str(attribute))
             if data == attribute_value:
                 button.click()
-                break
             else:
                 continue
 

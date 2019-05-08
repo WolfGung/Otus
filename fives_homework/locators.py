@@ -24,5 +24,18 @@ class Locators:
     checkboxes_locator = (By.CSS_SELECTOR, "input")
     delete_products_locator = (By.CLASS_NAME, "btn.btn-danger")
     edit_product_button_locator = (By.CLASS_NAME, "btn.btn-primary")
+    image_download_button_locator = (By.ID, "button-upload")
+    image_download_dynamic_locator = (By.XPATH, "//input[@name='file[]']")
+    image_tab_button_locator = (By.XPATH, "//a[@href='#tab-image']")
+    product_image_locator = (By.ID, "thumb-image")
+    image_edit_button_locator = (By.ID, "button-image")
+    image_download_close_button_locator = (By.CLASS_NAME, "close")
+    add_image_locator = (By.CLASS_NAME, "btn.btn-primary")
+    delete_images_button_locator = (By.ID, "button-delete")
+
+
+
+
+
 
 
