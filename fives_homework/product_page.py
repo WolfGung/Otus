@@ -99,8 +99,8 @@ class ProductPage(BasePage):
         Iter all checkboxes and found checkbox for choose all products
         :param driver: browser web driver
         """
-        BasePage.click_on_object_from_many(driver, locator=locators.checkboxes_locator,
-                                           attribute='type', attribute_value='checkbox')
+        BasePage.click_on_first_object_from_many(driver, locator=locators.checkboxes_locator,
+                                                 attribute='type', attribute_value='checkbox')
 
     @staticmethod
     def click_delete_all_products_button(driver):
@@ -116,8 +116,8 @@ class ProductPage(BasePage):
         Find from buttons edit button and click it
         :param driver: browser web river
         """
-        BasePage.click_on_object_from_many(driver, locator=locators.edit_product_button_locator,
-                                           attribute='data-original-title', attribute_value='Edit')
+        BasePage.click_on_first_object_from_many(driver, locator=locators.edit_product_button_locator,
+                                                 attribute='data-original-title', attribute_value='Edit')
 
     @staticmethod
     def clear_product_name_field(driver):
@@ -231,8 +231,8 @@ class ProductPage(BasePage):
         Click on add new image button in new product menu
         :param driver: browser web driver
         """
-        BasePage.click_on_object_from_many(driver, locator=locators.add_image_locator,
-                                           attribute="data-original-title", attribute_value="Add Image")
+        BasePage.click_on_first_object_from_many(driver, locator=locators.add_image_locator,
+                                                 attribute="data-original-title", attribute_value="Add Image")
 
     @staticmethod
     def choose_remove_images_by_names(driver, file_names):
@@ -242,8 +242,8 @@ class ProductPage(BasePage):
         :param file_names: names of images that we wanna delete
         """
         for arg in file_names:
-            BasePage.click_on_object_from_many(driver, locator=locators.checkboxes_locator,
-                                               attribute="value", attribute_value="catalog/{}".format(arg))
+            BasePage.click_on_all_object_from_many(driver, locator=locators.checkboxes_locator,
+                                                   attribute="value", attribute_value="catalog/{}".format(arg))
 
     @staticmethod
     def delete_selected_images(driver):

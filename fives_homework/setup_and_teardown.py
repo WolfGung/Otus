@@ -54,7 +54,7 @@ def add_new_product_with_images(driver, product_name, meta_tag, model, images_pa
     ProductPage.add_new_images_to_store(driver, images_path, *file_names)
     ProductPage.close_add_image_menu()
     ProductPage.add_images_to_product(driver, *file_names)
-    ProductPage.print_image_link(driver)
+#    ProductPage.print_image_link(driver)
     logging.info("Product has been created")
 
 
