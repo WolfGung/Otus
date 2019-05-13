@@ -99,8 +99,10 @@ class ProductPage(BasePage):
         Iter all checkboxes and found checkbox for choose all products
         :param driver: browser web driver
         """
-        BasePage.click_on_first_object_from_many(driver, locator=locators.checkboxes_locator,
-                                                 attribute='type', attribute_value='checkbox')
+        BasePage.click_on_first_object_from_many(driver,
+                                                 locator=locators.checkboxes_locator,
+                                                 attribute='type',
+                                                 attribute_value='checkbox')
 
     @staticmethod
     def click_delete_all_products_button(driver):
@@ -116,8 +118,10 @@ class ProductPage(BasePage):
         Find from buttons edit button and click it
         :param driver: browser web river
         """
-        BasePage.click_on_first_object_from_many(driver, locator=locators.edit_product_button_locator,
-                                                 attribute='data-original-title', attribute_value='Edit')
+        BasePage.click_on_first_object_from_many(driver,
+                                                 locator=locators.edit_product_button_locator,
+                                                 attribute='data-original-title',
+                                                 attribute_value='Edit')
 
     @staticmethod
     def clear_product_name_field(driver):
@@ -256,11 +260,3 @@ class ProductPage(BasePage):
         BasePage.alert_accept_click(driver)
         _wait_for_alert(driver, alert_message="Success: Your file or directory has been deleted!")
         BasePage.alert_accept_click(driver)
-
-
-    # @staticmethod
-    # def print_image_link(driver):
-    #     buttons = driver.find_elements(By.ID, "thumb-image")
-    #     for button in buttons:
-    #         data = button.get_attribute("src")
-    #         print("SRC LINK:{}".format(data))

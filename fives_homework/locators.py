@@ -32,10 +32,11 @@ class Locators:
     image_download_close_button_locator = (By.CLASS_NAME, "close")
     add_image_locator = (By.CLASS_NAME, "btn.btn-primary")
     delete_images_button_locator = (By.ID, "button-delete")
-
-
-
-
-
-
-
+    downloads_menu_products_locator = (By.LINK_TEXT, "Downloads")
+    add_new_downloads_file_locator = (By.XPATH, '//a[@data-original-title="Add New"]')
+    download_name_field_locator = (By.CLASS_NAME, "form-control")
+    file_upload_button_locator = (By.ID, "button-upload")
+    file_download_dynamic_locator = (By.XPATH, "//input[@name='file']")
+    save_downloaded_file = (By.CLASS_NAME, "btn.btn-primary")
+    check_box_type_locator = (By.XPATH, "//input[@type='checkbox']")
+    delete_file_button_locator = (By.XPATH, "//button[@data-original-title='Delete']")
