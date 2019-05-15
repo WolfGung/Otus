@@ -9,7 +9,6 @@ from selenium.webdriver.common.by import By
 from pynput.keyboard import Key, Controller
 from selenium.common.exceptions import NoSuchElementException
 import logging
-from time import sleep
 
 
 class DownloadsPage(BasePage):

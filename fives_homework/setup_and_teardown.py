@@ -77,3 +77,4 @@ def add_file_to_opencart(driver, file_url, file_name):
     DownloadsPage.input_download_file_name(driver, file_name)
     DownloadsPage.download_file(driver, file_url)
     DownloadsPage.check_downloaded_file(driver, file_name)
+
