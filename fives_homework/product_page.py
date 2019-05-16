@@ -260,3 +260,11 @@ class ProductPage(BasePage):
         BasePage.alert_accept_click(driver)
         _wait_for_alert(driver, alert_message="Success: Your file or directory has been deleted!")
         BasePage.alert_accept_click(driver)
+
+    # @staticmethod
+    # def pick_product_image_ids(driver):
+    #     elements = driver.find_elements(By.CLASS_NAME, "img-thumbnail")
+    #     id_list = list()
+    #     for element in elements:
+    #         id_list.append(element)
+    #     return id_list

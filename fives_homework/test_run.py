@@ -14,7 +14,7 @@ def test001(start_browser, address):
     :param start_browser: browser run
     :param address: fixture with parametrized url of opencart
     """
-    driver = start_browser
+    driver, proxy = start_browser
     driver.get(address)
     authorize_as_admin(driver, login="support", password="elephant")
     add_new_product(driver, product_name="Test product", meta_tag="Test meta tag", model="Test model")
@@ -25,6 +25,7 @@ def test001(start_browser, address):
         assert "Test product" in product.text
     delete_all_products(driver)
     ProductPage.accept_product_delete(driver)
+    proxy_logging(proxy)
     web_logging(driver, log_file='web_log.log')
 
 
@@ -35,7 +36,7 @@ def test002(start_browser, address):
     :param start_browser: browser run
     :param address: fixture with parametrized url of opencart
     """
-    driver = start_browser
+    driver, proxy = start_browser
     driver.get(address)
     authorize_as_admin(driver, login="support", password="elephant")
     add_new_product(driver, product_name="Test product", meta_tag="Test meta tag", model="Test model")
@@ -46,6 +47,7 @@ def test002(start_browser, address):
     products = ProductPage.find_product_name(driver)
     for product in products:
         assert "Test product" not in product.text
+    proxy_logging(proxy)
     web_logging(driver, log_file='web_log.log')
 
 
@@ -56,7 +58,7 @@ def test003(start_browser, address):
     :param start_browser: browser run
     :param address: fixture with parametrized url of opencart
     """
-    driver = start_browser
+    driver, proxy = start_browser
     driver.get(address)
     authorize_as_admin(driver, login="support", password="elephant")
     add_new_product(driver, product_name="Test product", meta_tag="Test meta tag", model="Test model")
@@ -73,6 +75,7 @@ def test003(start_browser, address):
     filter_products_by_name(driver, product_name="Edited test product")
     delete_all_products(driver)
     ProductPage.accept_product_delete(driver)
+    proxy_logging(proxy)
     web_logging(driver, log_file='web_log.log')
 
 
@@ -83,7 +86,7 @@ def test004(start_browser, address):
     :param start_browser: browser run
     :param address: fixture with parametrized url of opencart
     """
-    driver = start_browser
+    driver, proxy = start_browser
     driver.get(address)
     images_names = ("image1.jpg", "image2.jpg", "image3.jpg")
     authorize_as_admin(driver, login="support", password="elephant")
@@ -95,6 +98,7 @@ def test004(start_browser, address):
     MainPage.click_product_button(driver)
     filter_products_by_name(driver, product_name="Test product")
     delete_all_products(driver)
+    proxy_logging(proxy)
     web_logging(driver, log_file='web_log.log')
 
 
@@ -102,7 +106,7 @@ def test005(start_browser, address):
     """
     Test type - positive
     Add new file to downloads menu
-    :param start_browser: browser run 
+    :param start_browser: browser run
     :param address: fixture with parametrized url of opencart
     """
     driver, proxy = start_browser
