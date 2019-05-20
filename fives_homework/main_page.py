@@ -38,3 +38,19 @@ class MainPage(BasePage):
         :param driver: browser web driver
         """
         BasePage.click_on_object(driver, locator=locators.downloads_menu_products_locator)
+
+    @staticmethod
+    def click_design_menu(driver):
+        """
+        Open design menu combobox
+        :param driver: browser web driver
+        """
+        BasePage.click_on_object(driver, locator=locators.design_menu_locator)
+
+    @staticmethod
+    def click_menu_constructor(driver):
+        """
+        Click on menu constructor in main menu
+        :param driver: browser web driver
+        """
+        BasePage.click_on_object(driver, locator=locators.menu_constructor_locator)

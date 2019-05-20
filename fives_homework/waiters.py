@@ -18,7 +18,7 @@ def _wait_for_element(driver, locator, delay=5):
     try:
         WebDriverWait(driver, int(delay)).until(EC.presence_of_element_located(locator))
     except(NoSuchElementException, TimeoutException):
-        driver.save_screenshot("./wait_for_element_screenshot")
+        driver.save_screenshot("./wait_for_element_screenshot.png")
         logging.error("There are no visible element in delay {}".format(delay))
 
 

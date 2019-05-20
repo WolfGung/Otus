@@ -84,7 +84,7 @@ def start_browser(request, browser, timeout):
         des_cap['loggingPrefs'] = {'performance': 'ALL'}
         firefox_options().add_argument(argument='--proxy-server={}'.format(url))
         options = firefox_options()
-        options.headless = True
+#        options.headless = True
         wd = EventFiringWebDriver(webdriver.Firefox(options=options, executable_path=firefoxdriver_path,
                                                     desired_capabilities=des_cap), OpencartListener())
         wd.implicitly_wait(int(timeout))

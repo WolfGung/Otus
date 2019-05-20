@@ -7,7 +7,7 @@ import logging
 
 
 class OpencartListener(AbstractEventListener):
-    logging.basicConfig(filename='test_run_log.log', level=logging.DEBUG)
+    logging.basicConfig(filename='test_run_log.log', level=logging.disable(10))
 
     def before_find(self, by, value, driver):
         logging.info("trying to find by{}:{}".format(by, value))

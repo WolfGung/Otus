@@ -3,6 +3,7 @@
 
 
 from fives_homework.setup_and_teardown import *
+from fives_homework.menu_constructor import MenuConstructor
 from fives_homework.opencart_logger import web_logging, proxy_logging
 from fives_homework.product_page import ProductPage
 
@@ -119,3 +120,15 @@ def test005(start_browser, address):
     proxy_logging(proxy)
     web_logging(driver, log_file='web_log.log')
 
+def test006(start_browser, address):
+    """
+    Test type - positive
+    add new menu field and drug and drop it
+    :param start_browser: browser run
+    :param address: fixture with parametrized url of opencart
+    """
+    driver, proxy = start_browser
+    driver.get(address)
+    demo_authorize_as_admin(driver, login="demo", password="demo")
+    add_new_menu_field(driver)
+    MenuConstructor.check_computer_element(driver)

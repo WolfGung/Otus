@@ -6,7 +6,9 @@ from fives_homework.product_page import ProductPage
 from fives_homework.main_page import MainPage
 from fives_homework.admin_login_page import AdminLoginPage
 from fives_homework.downloads_page import DownloadsPage
+from fives_homework.menu_constructor import MenuConstructor
 import logging
+from time import sleep
 
 
 def authorize_as_admin(driver, login, password):
@@ -15,6 +17,13 @@ def authorize_as_admin(driver, login, password):
     AdminLoginPage.accept_button_click(driver)
     logging.info("Authorization has been successful")
     MainPage.message_close_button_click(driver)
+
+
+def demo_authorize_as_admin(driver, login, password):
+    AdminLoginPage.login_input(driver, login)
+    AdminLoginPage.password_input(driver, password)
+    AdminLoginPage.accept_button_click(driver)
+    logging.info("Authorization has been successful")
 
 
 def add_new_product(driver, product_name, meta_tag, model):
@@ -78,3 +87,8 @@ def add_file_to_opencart(driver, file_url, file_name):
     DownloadsPage.download_file(driver, file_url)
     DownloadsPage.check_downloaded_file(driver, file_name)
 
+
+def add_new_menu_field(driver):
+    MainPage.click_design_menu(driver)
+    MainPage.click_menu_constructor(driver)
+    MenuConstructor.drug_computer_drop_components(driver)
