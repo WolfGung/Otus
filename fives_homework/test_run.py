@@ -89,12 +89,17 @@ def test004(start_browser, address):
     """
     driver, proxy = start_browser
     driver.get(address)
-    images_names = ("image1.jpg", "image2.jpg", "image3.jpg")
+    images_names = ("image1", "image2", "image3")
+    jpg_names = list()
+    for name in images_names:
+        jpg_names.append(str(name)+".jpg")
+    print(jpg_names)
     authorize_as_admin(driver, login="support", password="elephant")
     add_new_product_with_images(driver, product_name="Test product", meta_tag="Test meta tag",
                                 model="Test model", images_path="/home/zhukov/Documents/nokia_images/",
-                                file_names=images_names)
-    delete_images_from_opencart(driver, file_names=images_names)
+                                file_names=jpg_names)
+    ProductPage.check_images_names(driver, images_names)
+    delete_images_from_opencart(driver, file_names=jpg_names)
     MainPage.open_product_catalog(driver)
     MainPage.click_product_button(driver)
     filter_products_by_name(driver, product_name="Test product")
@@ -119,6 +124,7 @@ def test005(start_browser, address):
     DownloadsPage.delete_selected_file(driver)
     proxy_logging(proxy)
     web_logging(driver, log_file='web_log.log')
+
 
 def test006(start_browser, address):
     """

@@ -260,3 +260,17 @@ class ProductPage(BasePage):
         BasePage.alert_accept_click(driver)
         _wait_for_alert(driver, alert_message="Success: Your file or directory has been deleted!")
         BasePage.alert_accept_click(driver)
+
+    @staticmethod
+    def check_images_names(driver, images_names):
+        """
+        Check that images with names in 'image_names' are used in product
+        :param driver: browser web driver
+        :param images_names: list of images names
+        """
+        opencart_url = "'http://192.168.102.98/opencart/image/cache/catalog/"
+        for image in images_names:
+            image_xpath = "//img[@src=" + opencart_url + image + "-100x100.jpg']"
+            _wait_for_element(driver, (By.XPATH, image_xpath))
+            driver.find_element(By.XPATH, image_xpath)
+        logging.info("All elements has been found")

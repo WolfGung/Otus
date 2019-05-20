@@ -8,7 +8,6 @@ from fives_homework.admin_login_page import AdminLoginPage
 from fives_homework.downloads_page import DownloadsPage
 from fives_homework.menu_constructor import MenuConstructor
 import logging
-from time import sleep
 
 
 def authorize_as_admin(driver, login, password):
