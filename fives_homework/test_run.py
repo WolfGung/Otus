@@ -93,7 +93,6 @@ def test004(start_browser, address):
     jpg_names = list()
     for name in images_names:
         jpg_names.append(str(name)+".jpg")
-    print(jpg_names)
     authorize_as_admin(driver, login="support", password="elephant")
     add_new_product_with_images(driver, product_name="Test product", meta_tag="Test meta tag",
                                 model="Test model", images_path="/home/zhukov/Documents/nokia_images/",
