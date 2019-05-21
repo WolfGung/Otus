@@ -12,7 +12,6 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from browsermobproxy import Server
 import urllib.parse
 
-
 server = Server(r"/home/zhukov/Tools/browsermob-proxy-2.1.4/bin/browsermob-proxy")
 server.start()
 
@@ -74,19 +73,25 @@ def start_browser(request, browser, timeout):
         des_cap = DesiredCapabilities.CHROME
         des_cap['loggingPrefs'] = {'performance': 'ALL'}
         chrome_options().add_argument(argument='--proxy-server={}'.format(url))
-        options = chrome_options()
-        options.headless = True
-        wd = EventFiringWebDriver(webdriver.Chrome(options=options, executable_path=chromedriver_path,
-                                                   desired_capabilities=des_cap), OpencartListener())
+#        options = chrome_options()
+#        options.headless = True
+#        wd = EventFiringWebDriver(webdriver.Chrome(options=options, executable_path=chromedriver_path,
+#                                                   desired_capabilities=des_cap), OpencartListener())
+        wd = EventFiringWebDriver(webdriver.Remote("http://localhost:4444/wd/hub",
+                                                   desired_capabilities={"browserName": "chrome"}),
+                                  OpencartListener())
         wd.implicitly_wait(int(timeout))
     else:
         des_cap = DesiredCapabilities.FIREFOX
         des_cap['loggingPrefs'] = {'performance': 'ALL'}
         firefox_options().add_argument(argument='--proxy-server={}'.format(url))
-        options = firefox_options()
+#        options = firefox_options()
 #        options.headless = True
-        wd = EventFiringWebDriver(webdriver.Firefox(options=options, executable_path=firefoxdriver_path,
-                                                    desired_capabilities=des_cap), OpencartListener())
+#        wd = EventFiringWebDriver(webdriver.Firefox(options=options, executable_path=firefoxdriver_path,
+#                                                    desired_capabilities=des_cap), OpencartListener())
+        wd = EventFiringWebDriver(webdriver.Remote("http://localhost:4444/wd/hub",
+                                                   desired_capabilities={"browserName": "firefox"}),
+                                  OpencartListener())
         wd.implicitly_wait(int(timeout))
     wd.maximize_window()
     request.addfinalizer(wd.quit)
