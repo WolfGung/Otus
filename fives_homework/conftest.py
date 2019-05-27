@@ -10,7 +10,11 @@ from selenium.webdriver.firefox.options import Options as firefox_options
 from selenium.webdriver.chrome.options import Options as chrome_options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from browsermobproxy import Server
-import urllib.parse
+import platform
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 
 server = Server(r"/home/zhukov/Tools/browsermob-proxy-2.1.4/bin/browsermob-proxy")
 server.start()
@@ -27,6 +31,42 @@ def pytest_addoption(parser):
                      help="Enter opencart url")
     parser.addoption("--timeout", action="store", default="5",
                      help="Enter page load timeout")
+    parser.addoption("-E", action="store", metavar="NAME", help="only run tests matching the environment NAME")
+
+
+@pytest.fixture(scope="session")
+def environment_info():
+    os_platform = platform.platform()
+    linux_dist = platform.linux_distribution()
+    return os_platform, linux_dist
+
+
+@pytest.mark.usefixtures("environment_info")
+@pytest.fixture(scope='session', autouse=True)
+def configure_html_report_env(request, environment_info):
+    request.config._metadata.update(
+        {"browser": request.config.getoption("--browser"),
+         "address": request.config.getoption("--address")})
+    yield
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == 'call':
+        report.test_metadata = 'whatever'
+        report.stage_metadata = {
+            'Test status': 'start of run'
+        }
+    elif report.when == 'setup':
+        report.stage_metadata = {
+            'Test status': 'in progress'
+        }
+    elif report.when == 'teardown':
+        report.stage_metadata = {
+            'Test status': 'test finished'
+        }
 
 
 @pytest.fixture
@@ -68,30 +108,34 @@ def start_browser(request, browser, timeout):
     """
     chromedriver_path = '/home/zhukov/PycharmProjects/Otus/drivers/chromedriver'
     firefoxdriver_path = '/home/zhukov/PycharmProjects/Otus/drivers/geckodriver'
-    url = urllib.parse.urlparse(proxy.proxy).path
+    url = urlparse(proxy.proxy).path
     if browser == "chrome":
         des_cap = DesiredCapabilities.CHROME
         des_cap['loggingPrefs'] = {'performance': 'ALL'}
         chrome_options().add_argument(argument='--proxy-server={}'.format(url))
-#        options = chrome_options()
-#        options.headless = True
-#        wd = EventFiringWebDriver(webdriver.Chrome(options=options, executable_path=chromedriver_path,
-#                                                   desired_capabilities=des_cap), OpencartListener())
-        wd = EventFiringWebDriver(webdriver.Remote("http://localhost:4444/wd/hub",
-                                                   desired_capabilities={"browserName": "chrome"}),
-                                  OpencartListener())
+        options = chrome_options()
+        options.headless = True
+        wd = EventFiringWebDriver(webdriver.Chrome(options=options, executable_path=chromedriver_path,
+                                                   desired_capabilities=des_cap), OpencartListener())
+#         command_executor = 'http://wolfgung1:b4sFyTQzEQanvH2GJgwg@hub.browserstack.com:80/wd/hub'
+#         wd = EventFiringWebDriver(webdriver.Remote(command_executor,
+#                                                    desired_capabilities={"browserName": "chrome",
+#                                                                          'os': 'Linux', 'os_version': '16.04'}),
+#                                  OpencartListener())
         wd.implicitly_wait(int(timeout))
     else:
         des_cap = DesiredCapabilities.FIREFOX
         des_cap['loggingPrefs'] = {'performance': 'ALL'}
         firefox_options().add_argument(argument='--proxy-server={}'.format(url))
-#        options = firefox_options()
-#        options.headless = True
-#        wd = EventFiringWebDriver(webdriver.Firefox(options=options, executable_path=firefoxdriver_path,
-#                                                    desired_capabilities=des_cap), OpencartListener())
-        wd = EventFiringWebDriver(webdriver.Remote("http://localhost:4444/wd/hub",
-                                                   desired_capabilities={"browserName": "firefox"}),
-                                  OpencartListener())
+        options = firefox_options()
+        options.headless = True
+        wd = EventFiringWebDriver(webdriver.Firefox(options=options, executable_path=firefoxdriver_path,
+                                                    desired_capabilities=des_cap), OpencartListener())
+#         command_executor = 'http://wolfgung1:b4sFyTQzEQanvH2GJgwg@hub.browserstack.com:80/wd/hub'
+#         wd = EventFiringWebDriver(webdriver.Remote(command_executor,
+#                                                    desired_capabilities={"browserName": "firefox",
+#                                                                          'os': 'Windows', 'os_version': '10'}),
+#                                   OpencartListener())
         wd.implicitly_wait(int(timeout))
     wd.maximize_window()
     request.addfinalizer(wd.quit)
