@@ -1,0 +1,5 @@
+1. Run parser.py
+2. Input in command line path to logs directory or a full path to log file
+# Script automatically known there are directory or file
+3. Json file will be created in script directory
+# Json have name like "log_file_name.json"
