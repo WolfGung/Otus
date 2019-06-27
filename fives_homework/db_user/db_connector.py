@@ -1,13 +1,40 @@
-import psycopg2
-from psycopg2 import sql
+#!/usr/bin/python
+
+from mysql.connector import connection
+import logging
 
 
-def main():
-    conn = psycopg2.connect(dbname="opencart", user="support",
-                            password="elephant", host="localhost")
-    # cursor = conn.cursor()
-    # cursor.execute('SELECT * FROM opencart.oc_address')
-    # record = cursor.fetchone()
-    # print(record)
-    # cursor.close()
-    # conn.close()
+class SqlTest:
+    def __init__(self):
+        self.config = {'user': 'support',
+                       'password': 'PASSWORD',
+                       'host': '127.0.0.1',
+                       'database': 'opencart',
+                       'raise_on_warnings': True}
+        self.table_name = 'test'
+
+    def mysql_connect(self):
+        connect = connection.MySQLConnection(**self.config)
+        return connect
+
+    def create_table(self, connect):
+        cursor = connect.cursor()
+        cursor.execute("CREATE TABLE {} (id INT, name VARCHAR(20))".format(self.table_name))
+        connect.commit()
+        cursor.close()
+
+    def remove_table(self, connect):
+        cursor = connect.cursor()
+        cursor.execute("DROP TABLE {}".format(self.table_name))
+        connect.commit()
+        cursor.close()
+
+    def check_table(self, connect):
+        cursor = connect.cursor()
+        cursor.execute("SHOW TABLES")
+        tables = cursor.fetchall()
+        try:
+            self.table_name in tables
+        except Exception:
+            logging.error("There are no table with name {}".format(self.table_name))
+        cursor.close()

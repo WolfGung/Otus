@@ -8,6 +8,7 @@ from fives_homework.menu_constructor import MenuConstructor
 from fives_homework.opencart_logger import web_logging
 from fives_homework.product_page import ProductPage
 from fives_homework.sqlite_uses.connection import main as proxy_logs_write
+from fives_homework.db_user.db_connector import SqlTest
 import allure
 
 
@@ -140,28 +141,28 @@ import allure
 # web_logging(driver, log_file='web_log.log')
 #
 #
-@allure.title('005 Critical: Add new file to "downloads" menu')
-@allure.severity("critical")
-@pytest.mark.env("opencart")
-def test005(start_browser, address):
-    """
-    Test type - positive
-    Add new file to downloads menu
-    :param start_browser: browser run
-    :param address: fixture with parametrized url of opencart
-    """
-    driver, proxy = start_browser
-    driver.get(address)
-    file_url = "/home/zhukov/Pictures/opencart_images/index.jpeg"
-    with allure.step('Authorization in admin login mask'):
-        authorize_as_admin(driver, login="support", password="elephant")
-    with allure.step('Adding file to opencart'):
-        add_file_to_opencart(driver, file_url, file_name="Test file")
-    with allure.step('Removing downloaded file'):
-        DownloadsPage.select_downloaded_file(driver)
-        DownloadsPage.delete_selected_file(driver)
-    proxy_logs_write(proxy)
-    web_logging(driver, log_file='web_log.log')
+# @allure.title('005 Critical: Add new file to "downloads" menu')
+# @allure.severity("critical")
+# @pytest.mark.env("opencart")
+# def test005(start_browser, address):
+#     """
+#     Test type - positive
+#     Add new file to downloads menu
+#     :param start_browser: browser run
+#     :param address: fixture with parametrized url of opencart
+#     """
+#     driver, proxy = start_browser
+#     driver.get(address)
+#     file_url = "/home/zhukov/Pictures/opencart_images/index.jpeg"
+#     with allure.step('Authorization in admin login mask'):
+#         authorize_as_admin(driver, login="support", password="elephant")
+#     with allure.step('Adding file to opencart'):
+#         add_file_to_opencart(driver, file_url, file_name="Test file")
+#     with allure.step('Removing downloaded file'):
+#         DownloadsPage.select_downloaded_file(driver)
+#         DownloadsPage.delete_selected_file(driver)
+#     proxy_logs_write(proxy)
+#     web_logging(driver, log_file='web_log.log')
 #
 #
 # @allure.title('006 Critical: drug and drop new menu field in menu constructor')
@@ -184,3 +185,18 @@ def test005(start_browser, address):
 #         MenuConstructor.check_computer_element(driver)
 #     proxy_logs_write(proxy)
 #     web_logging(driver, log_file='web_log.log')
+
+
+@allure.title('007 Critical: creating new table in opencart db')
+@allure.severity("critical")
+@pytest.mark.env("opencart")
+def test007():
+    """
+    Test type - positive
+    Create new table in opencart data base
+    """
+    DataBase = SqlTest()
+    Connection = DataBase.mysql_connect()
+    DataBase.create_table(Connection)
+    DataBase.check_table(Connection)
+    DataBase.remove_table(Connection)
