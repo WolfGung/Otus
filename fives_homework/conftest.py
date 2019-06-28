@@ -11,6 +11,8 @@ from selenium.webdriver.chrome.options import Options as chrome_options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from browsermobproxy import Server
 import platform
+
+
 try:
     from urllib.parse import urlparse
 except ImportError:
