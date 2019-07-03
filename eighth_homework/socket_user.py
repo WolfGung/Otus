@@ -4,6 +4,7 @@
 
 import socket
 from eighth_homework.html_parser import MyHTMLParser
+from html.parser import HTMLParser
 
 
 def socket_connect(host='www.google.com',
@@ -16,8 +17,16 @@ def socket_connect(host='www.google.com',
     sock.connect(address)
     sock.send(request.encode())
     result = sock.recv(4096)
-    parser = MyHTMLParser()
-    print(parser.feed(result.decode(encoding="ISO-8859-1")))
+    data = (result.decode(encoding="ISO-8859-1"))
+    some_data = (data.split('\n'))
+    final_dict = dict()
+    for i in some_data:
+        new_str = i.split()
+        if len(new_str) > 1:
+            final_dict[new_str[0]] = new_str[1:]
+        else:
+            continue
+    print(final_dict)
     sock.close()
 
 
