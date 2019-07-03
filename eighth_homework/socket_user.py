@@ -24,7 +24,8 @@ def socket_connect(host='www.google.com',
             final_dict[new_str[0]] = new_str[1:]
         else:
             continue
-    print(final_dict)
+    for keys, values in final_dict.items():
+        print(keys, values)
     sock.close()
 
 
