@@ -3,8 +3,6 @@
 
 
 import socket
-from eighth_homework.html_parser import MyHTMLParser
-from html.parser import HTMLParser
 
 
 def socket_connect(host='www.google.com',
