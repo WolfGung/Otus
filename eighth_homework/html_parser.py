@@ -12,19 +12,15 @@ class MyHTMLParser(HTMLParser, metaclass=ABCMeta):
         super().__init__()
         self.tag_dict = dict()
         self.tag_list = list()
-        self.attr_list = list()
         self.final_dict = dict()
         self.most_frequent_tag = str()
         self.text_list = list()
         self.href_list = list()
 
     def handle_starttag(self, tag, attrs):
+        self.tag_dict[tag] = attrs
         if len(attrs) > 0:
-            self.tag_dict[tag] = attrs
-        self.tag_list.append(tag)
-        if len(attrs) > 0:
-            for i in attrs:
-                self.attr_list.append(i)
+            self.tag_list.append(tag)
 
     def tag_parser(self):
         count_dict = Counter(self.tag_list)
@@ -37,14 +33,14 @@ class MyHTMLParser(HTMLParser, metaclass=ABCMeta):
                 continue
 
     def text_parser(self):
-        for i in self.attr_list:
-            if self.attr_list[i][0] == "text":
-                self.text_list.append(self.attr_list[i][1:])
+        for i in range(1, 6):
+            if 'h{}'.format(i) in self.tag_dict.keys():
+                self.text_list.append(self.tag_dict['h{}'.format(i)])
 
     def href_parser(self):
-        for i in self.attr_list:
-            if self.attr_list[i][0] == "href":
-                self.href_list.append(self.attr_list[i][1:])
+        if 'a' in self.tag_dict.keys():
+            if self.tag_dict['a'][0][0].strip() == "href":
+                self.href_list.append(self.tag_dict['a'][0][1].strip())
 
     def final_dict_creator(self):
         self.final_dict['tags'] = self.tag_list
@@ -53,9 +49,8 @@ class MyHTMLParser(HTMLParser, metaclass=ABCMeta):
         self.final_dict['images and urls'] = self.href_list
 
     def print_all(self):
-        html = MyHTMLParser()
-        html.tag_parser()
-        html.text_parser()
-        html.href_parser()
-        html.final_dict_creator()
+        self.href_parser()
+        self.tag_parser()
+        self.text_parser()
+        self.final_dict_creator()
         print(self.final_dict)

@@ -28,7 +28,7 @@ class Parametrization:
     def host_parser(self):
         self.host = input("Please enter host...")
         if self.host == '':
-            self.host = "google.com"
+            self.host = "youtube.com"
         return self.host
 
     def port_parser(self):
