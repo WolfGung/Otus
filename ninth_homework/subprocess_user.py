@@ -93,7 +93,6 @@ class SubprocessUser:
 
     def service_status_checker(self):
         if self.data[1] != 'active':
-            raise Warning("Service is not active!")
-            logging.error("Service status is {}!".format(self.data[1]))
+            logging.info("Service status is {}!".format(self.data[1]))
         else:
             logging.info("Service is active...")

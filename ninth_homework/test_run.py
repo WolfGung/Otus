@@ -34,7 +34,7 @@ def test002():
     with allure.step("Parse default route data"):
         process.byte_parser(output)
     with allure.step("Checking default route state"):
-        process.default_route_checker(default_ip='192.168.0.254', default_method='dhcp')
+        process.default_route_checker(default_ip='172.17.0.1', default_method='dev')
 
 
 @allure.title("003 Critical: Looking for cpu workload")
@@ -102,7 +102,7 @@ def test006():
 @pytest.mark.test007
 def test007():
     with allure.step("Input command and take output"):
-        service_name = "apache2"
+        service_name = "ssh"
         process = SubprocessUser()
         command = "service {} status | grep Active".format(service_name)
         output = process.check_output(command)
