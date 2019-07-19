@@ -97,19 +97,19 @@ def test006():
         logging.info("Interface statistic: {}".format(ifconfig))
 
 
-@allure.title("007 Critical: Looking for service status")
-@allure.severity("critical")
-@pytest.mark.test007
-def test007():
-    with allure.step("Input command and take output"):
-        service_name = "ssh"
-        process = SubprocessUser()
-        command = "service {} status | grep Active".format(service_name)
-        output = process.check_output(command)
-    with allure.step("Parse ifconfig statistic"):
-        process.byte_parser(output)
-    with allure.step("Checking service status"):
-        process.service_status_checker()
+# @allure.title("007 Critical: Looking for service status")
+# @allure.severity("critical")
+# @pytest.mark.test007
+# def test007():
+#     with allure.step("Input command and take output"):
+#         service_name = "ssh"
+#         process = SubprocessUser()
+#         command = "service {} status | grep Active".format(service_name)
+#         output = process.check_output(command)
+#     with allure.step("Parse ifconfig statistic"):
+#         process.byte_parser(output)
+#     with allure.step("Checking service status"):
+#         process.service_status_checker()
 
 
 @allure.title("008 Critical: Looking for tcp/udp port status")
