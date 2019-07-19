@@ -14,7 +14,7 @@ from ninth_homework.subprocess_user import SubprocessUser
 def test001():
     with allure.step("Input command and take output"):
         process = SubprocessUser()
-        command = "ip a | grep enp1s0"
+        command = "ip a | grep eth0"
         output = process.check_output(command)
     with allure.step("Parse main interface state"):
         process.byte_parser(output)
