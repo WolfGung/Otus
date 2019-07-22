@@ -2,9 +2,9 @@
 # -*- coding: UTF-8 -*-
 
 
+import logging
 import pytest
 import allure
-import logging
 from ninth_homework.subprocess_user import SubprocessUser
 
 
