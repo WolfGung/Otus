@@ -1,7 +1,15 @@
 <component name="ProjectDictionaryState">
   <dictionary name="zhukov">
     <words>
+      <w>addr</w>
+      <w>cpuinfo</w>
+      <w>dhcp</w>
+      <w>dpkg</w>
+      <w>netstat</w>
+      <w>ntlp</w>
       <w>opencart</w>
+      <w>proc</w>
+      <w>uname</w>
     </words>
   </dictionary>
 </component>

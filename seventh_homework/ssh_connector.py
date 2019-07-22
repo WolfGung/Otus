@@ -48,7 +48,7 @@ class SshConnector:
     def mysql_restart(self, client):
         SshConnector.service_restart(client, self.mysql_service)
 
-    def apache_restart(self,client):
+    def apache_restart(self, client):
         SshConnector.service_restart(client, self.apache_service)
 
     @staticmethod
