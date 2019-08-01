@@ -11,11 +11,3 @@ def test_check_status():
         return response
     else:
         return None
-
-
-
-#     @staticmethod
-#     def test_apache_check():
-#         ap = requests.get("http://192.168.102.98/opencart/").headers
-#         assert ap['Server'] == 'Apache/2.4.29 (Ubuntu)', 'Server is {}'.format(ap['Server'])
-#

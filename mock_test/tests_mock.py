@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 
-from mock_test.main_tests import test_check_status
+from mock_test.requests_library import test_check_status
 from unittest.mock import patch
 import unittest
 
